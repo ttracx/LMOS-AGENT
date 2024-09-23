@@ -5,7 +5,6 @@
   "main": "index.js",
   "type": "module",
   "author": "Tommy Xaypanya",
-  "license": "MIT",
   "engines": {
     "node": ">=18"
   },
