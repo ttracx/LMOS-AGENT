@@ -32,7 +32,7 @@ export default function CustomAppName() {
     let custom_app_name = newValue;
     if (newValue === null) {
       const form = new FormData(e.target);
-      custom_app_name = form.get("customAppName");
+      custom_app_name = form.get("LMOS Desktop");
     }
     const { success, error } = await Admin.updateSystemPreferences({
       custom_app_name,

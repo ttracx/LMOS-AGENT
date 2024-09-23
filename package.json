@@ -1,10 +1,10 @@
 {
-  "name": "anything-llm",
+  "name": "lmos-agent",
   "version": "0.2.0",
-  "description": "The best solution for turning private documents into a chat bot using off-the-shelf tools and commercially viable AI technologies.",
+  "description": "LMOS Agent.",
   "main": "index.js",
   "type": "module",
-  "author": "Timothy Carambat (Mintplex Labs)",
+  "author": "Tommy Xaypanya",
   "license": "MIT",
   "engines": {
     "node": ">=18"
