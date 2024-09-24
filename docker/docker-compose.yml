@@ -9,7 +9,7 @@ services:
       - SYS_ADMIN
     environment:
       - STORAGE_DIR=/app/server/storage
-      - JWT_SECRET="make this a large list of random numbers and letters 20+"
+      - JWT_SECRET="Gz2b9h4nF1J6k7R0m5p3Q2t9v8w7u6i5o4n3m2l1k0j-9y8x7"
       - LLM_PROVIDER=ollama
       - OLLAMA_BASE_PATH=http://127.0.0.1:11434
       - OLLAMA_MODEL_PREF=llama2

@@ -1,0 +1,134 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "resources": [
+    {
+      "type": "Microsoft.ContainerInstance/containerGroups",
+      "apiVersion": "2021-03-01",
+      "name": "[parameters('containerGroups_pulpvision_cg_name')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "containers": [
+          {
+            "name": "anythingllm",
+            "properties": {
+              "image": "mintplexlabs/anythingllm",
+              "resources": {
+                "requests": {
+                  "cpu": 1,
+                  "memoryInGb": 1.5
+                }
+              },
+              "ports": [
+                {
+                  "port": 3001
+                }
+              ],
+              "environmentVariables": [
+                {
+                  "name": "STORAGE_DIR",
+                  "value": "/app/server/storage"
+                },
+                {
+                  "name": "JWT_SECRET",
+                  "value": "Gz2b9h4nF1J6k7R0m5p3Q2t9v8w7u6i5o4n3m2l1k0j-9y8x7"
+                },
+                {
+                  "name": "LLM_PROVIDER",
+                  "value": "ollama"
+                },
+                {
+                  "name": "OLLAMA_BASE_PATH",
+                  "value": "http://127.0.0.1:11434"
+                },
+                {
+                  "name": "OLLAMA_MODEL_PREF",
+                  "value": "llama2"
+                },
+                {
+                  "name": "OLLAMA_MODEL_TOKEN_LIMIT",
+                  "value": "4096"
+                },
+                {
+                  "name": "EMBEDDING_ENGINE",
+                  "value": "ollama"
+                },
+                {
+                  "name": "EMBEDDING_BASE_PATH",
+                  "value": "http://127.0.0.1:11434"
+                },
+                {
+                  "name": "EMBEDDING_MODEL_PREF",
+                  "value": "nomic-embed-text:latest"
+                },
+                {
+                  "name": "EMBEDDING_MODEL_MAX_CHUNK_LENGTH",
+                  "value": "8192"
+                },
+                {
+                  "name": "VECTOR_DB",
+                  "value": "lancedb"
+                },
+                {
+                  "name": "WHISPER_PROVIDER",
+                  "value": "local"
+                },
+                {
+                  "name": "TTS_PROVIDER",
+                  "value": "native"
+                },
+                {
+                  "name": "PASSWORDMINCHAR",
+                  "value": "8"
+                }
+              ],
+              "volumeMounts": [
+                {
+                  "name": "anythingllm_storage",
+                  "mountPath": "/app/server/storage"
+                }
+              ]
+            }
+          }
+        ],
+        "osType": "Linux",
+        "ipAddress": {
+          "type": "Public",
+          "ports": [
+            {
+              "protocol": "tcp",
+              "port": 3001
+            }
+          ],
+          "dnsNameLabel": "[parameters('containerGroups_dnsNameLabel')]"
+        },
+        "volumes": [
+          {
+            "name": "anythingllm_storage",
+            "azureFile": {
+              "shareName": "anythingllm_storage",
+              "storageAccountName": "[parameters('storageAccountName')]",
+              "storageAccountKey": "[parameters('storageAccountKey')]"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "parameters": {
+    "containerGroups_pulpvision_cg_name": {
+      "type": "string",
+      "defaultValue": "pulpvision-cg"
+    },
+    "containerGroups_dnsNameLabel": {
+      "type": "string",
+      "defaultValue": "pulpvision"
+    },
+    "storageAccountName": {
+      "type": "string"
+    },
+    "storageAccountKey": {
+      "type": "string"
+    }
+  }
+}
